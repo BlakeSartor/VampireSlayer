@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerMovement : Bolt.EntityBehaviour<ISlayerState>
 {
-    public Camera cam;
     public float playerSpeed = 4f;
     public override void Attached()
     {
@@ -12,8 +11,6 @@ public class PlayerMovement : Bolt.EntityBehaviour<ISlayerState>
 
         if (entity.IsOwner)
         {
-            cam.gameObject.SetActive(true);
-
             state.SlayerColor = new Color(Random.value, Random.value, Random.value);
         }
 

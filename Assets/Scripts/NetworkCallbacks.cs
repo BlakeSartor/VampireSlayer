@@ -22,6 +22,7 @@ public class NetworkCallbacks : Bolt.GlobalEventListener
 
     List<string> logMessages = new List<string>();
 
+    [System.Obsolete]
     public override void SceneLoadLocalDone(string scene)
     {
         var spawnPosition = new Vector3(Random.Range(-5f, 5f), Random.Range(15f,30f), 0f);

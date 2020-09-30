@@ -14,7 +14,6 @@ public class PlayerHealth : Bolt.EntityBehaviour<ISlayerState>
         }
 
         state.AddCallback("SlayerHealth", HealthCallback);
-
     }
 
     private void HealthCallback()

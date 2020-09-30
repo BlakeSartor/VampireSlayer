@@ -33,6 +33,7 @@ public class PlayerWeapon : Bolt.EntityEventListener<ISlayerState>
 
     void WeaponActiveIndexChanged()
     {
+
         for (int i = 0; i < WeaponObjects.Length; ++i)
         {
             WeaponObjects[i].SetActive(false);
@@ -48,10 +49,10 @@ public class PlayerWeapon : Bolt.EntityEventListener<ISlayerState>
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1)) state.WeaponActiveIndex = 0;
-        if (Input.GetKeyDown(KeyCode.Alpha2)) state.WeaponActiveIndex = 1;
-        if (Input.GetKeyDown(KeyCode.Alpha3)) state.WeaponActiveIndex = 2;
-        if (Input.GetKeyDown(KeyCode.Alpha0)) state.WeaponActiveIndex = -1;
+        if (Input.GetKeyDown(KeyCode.Alpha1) && entity.IsOwner) state.WeaponActiveIndex = 0;
+        //if (Input.GetKeyDown(KeyCode.Alpha2)) state.WeaponActiveIndex = 1;
+        //if (Input.GetKeyDown(KeyCode.Alpha3)) state.WeaponActiveIndex = 2;
+        if (Input.GetKeyDown(KeyCode.Alpha0) && entity.IsOwner) state.WeaponActiveIndex = -1;
 
         if (Input.GetKeyDown(KeyCode.Mouse0) && entity.IsOwner)
         {
