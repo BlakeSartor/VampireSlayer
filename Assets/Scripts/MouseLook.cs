@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MouseLook : MonoBehaviour
+public class MouseLook : Bolt.EntityBehaviour<ISlayerState>
 {
-
     public CharacterController character;
 
     float mouseSensitiviy = 5f;
@@ -15,15 +14,25 @@ public class MouseLook : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void Update()
+    public override void Attached()
     {
-        float x = Input.GetAxis("Mouse X") * mouseSensitiviy;
-        float y = Input.GetAxis("Mouse Y") * mouseSensitiviy;
+        state.SetTransforms(state.WeaponRotation, transform);
+    }
 
-        xRot -= y;
-        xRot = Mathf.Clamp(xRot, -90f, 90f); 
-        transform.localRotation = Quaternion.Euler(xRot, 0f, 0f);
+    public void Update()
+    {
+        if (entity.IsOwner)
+        {
+            float x = Input.GetAxis("Mouse X") * mouseSensitiviy;
+            float y = Input.GetAxis("Mouse Y") * mouseSensitiviy;
 
-        character.transform.Rotate(Vector3.up * x);
+            xRot -= y;
+            xRot = Mathf.Clamp(xRot, -90f, 90f);
+
+
+            transform.localRotation = Quaternion.Euler(xRot, 0f, 0f);
+
+            character.transform.Rotate(Vector3.up * x);
+        }
     }
 }

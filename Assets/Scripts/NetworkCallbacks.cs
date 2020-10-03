@@ -27,7 +27,7 @@ public class NetworkCallbacks : Bolt.GlobalEventListener
     {
         var spawnPosition = new Vector3(Random.Range(-5f, 5f), Random.Range(15f,30f), 0f);
 
-        BoltNetwork.Instantiate(BoltPrefabs.FirstPersonPlayer, spawnPosition, Quaternion.identity);
+        var player = BoltNetwork.Instantiate(BoltPrefabs.FirstPersonPlayer, spawnPosition, Quaternion.identity);
     }
 
     public override void OnEvent(PlayerJoinedEvent evnt)

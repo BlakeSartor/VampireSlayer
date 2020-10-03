@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class PlayerMovement2 : Bolt.EntityBehaviour<ISlayerState>
+public class PlayerMovement2 : Bolt.EntityEventListener<ISlayerState>
 {
     public GameObject eyes;
     public Camera cam;
@@ -25,19 +25,22 @@ public class PlayerMovement2 : Bolt.EntityBehaviour<ISlayerState>
     {
         state.SetTransforms(state.SlayerTransform, transform);
 
+
         if (entity.IsOwner)
         {
-            eyes.SetActive(false);
             cam.gameObject.SetActive(true);
 
+            eyes.SetActive(false);
+
             state.SlayerColor = new Color(Random.value, Random.value, Random.value);
-        }
+        } 
 
         state.AddCallback("SlayerColor", ColorChanged);
     }
 
     public void Update()
     {
+        
         if (Input.GetButtonDown("Jump"))
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
@@ -46,7 +49,6 @@ public class PlayerMovement2 : Bolt.EntityBehaviour<ISlayerState>
 
     public override void SimulateOwner()
     {
-
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)

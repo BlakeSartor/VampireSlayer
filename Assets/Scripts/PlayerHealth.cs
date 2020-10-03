@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerHealth : Bolt.EntityBehaviour<ISlayerState>
+public class PlayerHealth : Bolt.EntityEventListener<ISlayerState>
 {
     public float health = 3f;
 
@@ -20,26 +20,22 @@ public class PlayerHealth : Bolt.EntityBehaviour<ISlayerState>
     {
         health = state.SlayerHealth;
 
-        if (health <= 0) 
+        if (health <= 0)
         {
             Die();
         }
 
     }
 
-    public void Update()
+    public void fun()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (entity.IsOwner)
-            {
-               // state.SlayerHealth -= 1;
-            }
-        }
+        BoltConsole.Write("in playerhealth");
     }
 
+    //public override on
     public void Die()
     {
+        Debug.Log("trying");
         BoltNetwork.Destroy(gameObject);
     }
 

@@ -23,7 +23,7 @@ public class Menu : Bolt.GlobalEventListener
 
             BoltMatchmaking.CreateSession(
                 sessionID: matchName,
-                sceneToLoad: "Main"
+                sceneToLoad: "Main2"
             );
         }
     }
