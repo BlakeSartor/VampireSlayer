@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23de5c19850343247a574e62a2bd627b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 6869101153108989145}
   character: {fileID: 3408894260811720848}
 --- !u!114 &107556242629788701
 MonoBehaviour:
@@ -689,6 +690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ca18264685e0847a31936b462956b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 6869101153108989145}
   eyes: {fileID: 5221374229255057210}
   cam: {fileID: 3408894260925031895}
   character: {fileID: 3408894260811720848}
@@ -699,8 +701,8 @@ MonoBehaviour:
     m_Bits: 256
   speed: 12
   gravity: -18.62
-  walkSpeed: 12
-  runSpeed: 150
+  walkSpeed: 15
+  runSpeed: 25
   jumpHeight: 3
 --- !u!114 &-577956433465882595
 MonoBehaviour:
@@ -714,6 +716,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e39185ab35e09f144b8cb0e23b00abab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 6869101153108989145}
   muzzlePrefab: {fileID: 1232324091781682122, guid: b6f15851cb02f0d46b42841070077c6d, type: 3}
   WeaponObjects:
   - {fileID: 1702912763855079958}
@@ -1779,7 +1782,7 @@ GameObject:
   - component: {fileID: 2596360240318164170}
   - component: {fileID: 1142531478240532802}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UICANVAS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerWeapon : Bolt.EntityEventListener<ISlayerState>
 {
+    public GameObject pauseMenu;
     public GameObject muzzlePrefab;
     public GameObject[] WeaponObjects;
     public Camera cam;
@@ -51,24 +52,29 @@ public class PlayerWeapon : Bolt.EntityEventListener<ISlayerState>
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) && entity.IsOwner) state.WeaponActiveIndex = 0;
-        if (Input.GetKeyDown(KeyCode.Alpha2) && entity.IsOwner) state.WeaponActiveIndex = 1;
-        if (Input.GetKeyDown(KeyCode.Alpha3) && entity.IsOwner) state.WeaponActiveIndex = 2;
-        if (Input.GetKeyDown(KeyCode.Alpha0) && entity.IsOwner) state.WeaponActiveIndex = -1;
-
-        if (Input.GetKeyDown(KeyCode.Mouse0) && entity.IsOwner)
+        PauseMenu pause = pauseMenu.GetComponent<PauseMenu>();
+        if (!pause.getIsPaused())
         {
-            if (state.WeaponActiveIndex >= 0)
+
+            if (Input.GetKeyDown(KeyCode.Alpha1) && entity.IsOwner) state.WeaponActiveIndex = 0;
+            if (Input.GetKeyDown(KeyCode.Alpha2) && entity.IsOwner) state.WeaponActiveIndex = 1;
+            if (Input.GetKeyDown(KeyCode.Alpha3) && entity.IsOwner) state.WeaponActiveIndex = 2;
+            if (Input.GetKeyDown(KeyCode.Alpha0) && entity.IsOwner) state.WeaponActiveIndex = -1;
+
+            if (Input.GetKeyDown(KeyCode.Mouse0) && entity.IsOwner)
             {
-                state.WeaponShoot();
+                if (state.WeaponActiveIndex >= 0)
+                {
+                    state.WeaponShoot();
+                }
             }
         }
-
 
     }
 
     public void Shoot()
     {
+
         var currentWeapon = WeaponObjects[state.WeaponActiveIndex];
         Weapon weapon = currentWeapon.GetComponent<Weapon>();
 

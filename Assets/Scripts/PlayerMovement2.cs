@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement2 : Bolt.EntityEventListener<ISlayerState>
 {
-    public PauseMenu pauseMenu;
+    public GameObject pauseMenu;
     public GameObject eyes;
     public Camera cam;
     public CharacterController character;
@@ -50,37 +50,41 @@ public class PlayerMovement2 : Bolt.EntityEventListener<ISlayerState>
 
     public override void SimulateOwner()
     {
-
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
-        if (isGrounded && velocity.y < 0)
+        PauseMenu pause = pauseMenu.GetComponent<PauseMenu>();
+        if (!pause.getIsPaused())
         {
-            velocity.y = -2f;
+
+            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+            if (isGrounded && velocity.y < 0)
+            {
+                velocity.y = -2f;
+            }
+
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                speed = runSpeed;
+            }
+            else
+            {
+                speed = walkSpeed;
+            }
+
+            if (Input.GetButtonDown("Jump"))
+            {
+                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            }
+
+            float x = Input.GetAxisRaw("Horizontal");
+            float z = Input.GetAxisRaw("Vertical");
+
+            Vector3 moveDir = transform.right * x + transform.forward * z;
+
+            character.Move(moveDir.normalized * speed * Time.deltaTime);
+
+            velocity.y += gravity * Time.deltaTime;
+            character.Move(velocity * Time.deltaTime);
         }
-
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            speed = runSpeed;
-        }
-        else
-        {
-            speed = walkSpeed;
-        }
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
-
-        float x = Input.GetAxisRaw("Horizontal");
-        float z = Input.GetAxisRaw("Vertical");
-
-        Vector3 moveDir = transform.right * x + transform.forward * z;
-
-        character.Move(moveDir.normalized * speed * Time.deltaTime);
-
-        velocity.y += gravity * Time.deltaTime;
-        character.Move(velocity * Time.deltaTime);
     }
 
     void OnGUI()

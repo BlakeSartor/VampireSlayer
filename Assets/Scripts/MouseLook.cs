@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MouseLook : Bolt.EntityBehaviour<ISlayerState>
 {
+
+    public GameObject pauseMenu;
     public CharacterController character;
 
     float mouseSensitiviy = 5f;
@@ -21,18 +23,23 @@ public class MouseLook : Bolt.EntityBehaviour<ISlayerState>
 
     public void Update()
     {
-        if (entity.IsOwner)
-        {
-            float x = Input.GetAxis("Mouse X") * mouseSensitiviy;
-            float y = Input.GetAxis("Mouse Y") * mouseSensitiviy;
+        if (entity.IsOwner) {
 
-            xRot -= y;
-            xRot = Mathf.Clamp(xRot, -90f, 90f);
+            PauseMenu pause = pauseMenu.GetComponent<PauseMenu>();
+            if (!pause.getIsPaused())
+            {
+
+                float x = Input.GetAxis("Mouse X") * mouseSensitiviy;
+                float y = Input.GetAxis("Mouse Y") * mouseSensitiviy;
+
+                xRot -= y;
+                xRot = Mathf.Clamp(xRot, -90f, 90f);
 
 
-            transform.localRotation = Quaternion.Euler(xRot, 0f, 0f);
+                transform.localRotation = Quaternion.Euler(xRot, 0f, 0f);
 
-            character.transform.Rotate(Vector3.up * x);
+                character.transform.Rotate(Vector3.up * x);
+            }
         }
     }
 }

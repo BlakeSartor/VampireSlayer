@@ -48,4 +48,9 @@ public class PauseMenu : MonoBehaviour
         BoltNetwork.Shutdown();
         SceneManager.LoadSceneAsync("Menu");
     }
+
+    public bool getIsPaused()
+    {
+        return gameIsPaused;
+    }
 }
