@@ -60,6 +60,11 @@ sysinfo.txt
 *.aab
 *.unitypackage
 
+#
+*.collabignore
+Bolt_DebugStart_Build/
+
+
 # Crashlytics generated file
 crashlytics-build.properties
 
