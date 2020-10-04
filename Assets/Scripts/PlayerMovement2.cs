@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement2 : Bolt.EntityEventListener<ISlayerState>
 {
+    public PauseMenu pauseMenu;
     public GameObject eyes;
     public Camera cam;
     public CharacterController character;
@@ -41,7 +42,7 @@ public class PlayerMovement2 : Bolt.EntityEventListener<ISlayerState>
     public void Update()
     {
         
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
@@ -49,6 +50,7 @@ public class PlayerMovement2 : Bolt.EntityEventListener<ISlayerState>
 
     public override void SimulateOwner()
     {
+
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
