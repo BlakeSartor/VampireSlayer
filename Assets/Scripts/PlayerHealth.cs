@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class PlayerHealth : Bolt.EntityEventListener<ISlayerState>
 {
-    public float health = 3f;
+    public float maxHealth = 100f;
+    public HealthBar healthbar;
+    private float health;
+    public void Start()
+    {
+        health = maxHealth;
+        healthbar.SetMaxHealth(health);
+    }
 
     public override void Attached()
     {
@@ -27,16 +34,36 @@ public class PlayerHealth : Bolt.EntityEventListener<ISlayerState>
 
     }
 
-    public void fun()
+
+    public void TakeDamage(float amount)
     {
-        BoltConsole.Write("in playerhealth");
+        if (entity.IsOwner)
+        {
+            BoltConsole.Write("Healt: " + health);
+            health -= amount;
+
+            healthbar.SetHealth(health);
+
+            BoltConsole.Write("Healt after: " + health);
+
+
+            if (health <= 0)
+            {
+                Die();
+            }
+        }
     }
 
-    //public override on
-    public void Die()
+    void Die()
     {
-        Debug.Log("trying");
         BoltNetwork.Destroy(gameObject);
+        var spawnPosition = new Vector3(Random.Range(-5f, 5f), Random.Range(15f, 30f), 0f);
+
+       var player = BoltNetwork.Instantiate(BoltPrefabs.FirstPersonPlayer, spawnPosition, Quaternion.identity);
+
+        //health = maxHealth;
+        //healthbar.SetHealth(maxHealth);
+
     }
 
 }
