@@ -8,7 +8,7 @@ public class ServerListControls : GlobalEventListener
 {
     void Update()
     {
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             BoltLauncher.Shutdown();
             SceneManager.LoadSceneAsync("Menu");
