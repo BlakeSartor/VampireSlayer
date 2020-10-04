@@ -5,16 +5,10 @@ using UnityEngine;
 
 public class PlayerWeapon : Bolt.EntityEventListener<ISlayerState>
 {
-    public int muzzleIndex;
     public GameObject muzzlePrefab;
     public GameObject[] WeaponObjects;
-    public GameObject[] firePoints;
     public Camera cam;
-    public float bulletSpeed;
     public int activeWeapon;
-    public float gunRange = 100f;
-    public float gunDamage = 1f;
-    public GameObject projectileHitPrefab;
 
     public override void Attached()
     {
@@ -75,6 +69,18 @@ public class PlayerWeapon : Bolt.EntityEventListener<ISlayerState>
 
     public void Shoot()
     {
+        var currentWeapon = WeaponObjects[state.WeaponActiveIndex];
+        Weapon weapon = currentWeapon.GetComponent<Weapon>();
+
+        float gunRange = weapon.GetRange();
+        float gunDamage = weapon.GetDamage();
+        float projectileSpeed = weapon.GetProjectileSpeed();
+        bool isProjectileShooter = weapon.GetIsProjectileShooter();
+
+        GameObject projectilePrefab = weapon.projectilPrefab;
+        GameObject projectilHitPrefab = weapon.projectileHitPrefab;
+        GameObject firePoint = weapon.firePoint;
+
         Vector3 aimPoint;
         RaycastHit rayHit;
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out rayHit, gunRange))
@@ -83,22 +89,29 @@ public class PlayerWeapon : Bolt.EntityEventListener<ISlayerState>
             var targetEntity = rayHit.collider.gameObject.GetComponent<BoltEntity>();
             if (entity.IsOwner)
             {
-                BoltConsole.Write("HIT DETECTED  on OBJECT : " + rayHit.collider.gameObject.name);
-                if (targetEntity != null)
+
+                if (!isProjectileShooter)
                 {
-                    if (entity.IsAttached)
+                    BoltConsole.Write("HIT DETECTED  on OBJECT : " + rayHit.collider.gameObject.name);
+                    if (targetEntity != null)
                     {
-                        BoltConsole.Write("CALLING EVENT");
-                        var evnt = TakeDamageEvent.Create(targetEntity.Source);
-                        evnt.Damage = gunDamage;
-                        evnt.Send();
+                        if (entity.IsAttached)
+                        {
+
+                            BoltConsole.Write("CALLING EVENT");
+                            var evnt = TakeDamageEvent.Create(targetEntity.Source);
+                            evnt.Damage = gunDamage;
+                            evnt.Send();
+                        }
+                    }
+                    if (projectilHitPrefab != null)
+                    {
+                        Quaternion rot = Quaternion.FromToRotation(Vector3.up, aimPoint);
+                        var hitfx = Instantiate(projectilHitPrefab, aimPoint, rot);
                     }
                 }
-                if (projectileHitPrefab != null)
-                {
-                    Quaternion rot = Quaternion.FromToRotation(Vector3.up, aimPoint);
-                    var hitfx = Instantiate(projectileHitPrefab, aimPoint, rot);
-                }
+
+
             }
         }
         else
@@ -108,16 +121,19 @@ public class PlayerWeapon : Bolt.EntityEventListener<ISlayerState>
         if (entity.IsOwner)
         {
 
-            muzzleIndex = state.WeaponActiveIndex;
-            var muz = firePoints[muzzleIndex];
+            var bullet = BoltNetwork.Instantiate(projectilePrefab, firePoint.transform.position, Quaternion.identity);
 
-            var bullet = BoltNetwork.Instantiate(BoltPrefabs.Projectile, muz.transform.position, Quaternion.identity);
+            var projectileScript = bullet.GetComponent<Projectile>();
+            projectileScript.SetSpeed(projectileSpeed);
+            projectileScript.SetIsProjectileShooter(isProjectileShooter);
+            projectileScript.SetProjectileDamage(gunDamage);
+            projectileScript.SetProjectileHitPrefab(projectilHitPrefab);
 
             bullet.transform.LookAt(aimPoint);
 
              if (muzzlePrefab != null)
                 {
-                    var muzzleVfx = BoltNetwork.Instantiate(muzzlePrefab, muz.transform.position, Quaternion.identity);
+                    var muzzleVfx = BoltNetwork.Instantiate(muzzlePrefab, firePoint.transform.position, Quaternion.identity);
                     muzzleVfx.transform.forward = bullet.transform.forward;
                 }
         }

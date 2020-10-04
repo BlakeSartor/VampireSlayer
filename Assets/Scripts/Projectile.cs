@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Projectile : Bolt.EntityBehaviour<IProjectileState>
 {
-    public float speed;
-    public float damage;
-    public float fireRate;
-    public float impactForce;
+    private float speed;
+    private bool isProjectileShooter;
+    private float damage;
+    private GameObject projectileHitPrefab;
 
     public override void Attached()
     {
@@ -45,6 +45,46 @@ public class Projectile : Bolt.EntityBehaviour<IProjectileState>
         {
             speed = 0;
             Destroy(gameObject);
+
+            if (isProjectileShooter)
+            {
+                var targetEntity = collision.gameObject.GetComponent<BoltEntity>();
+                if (targetEntity != null)
+                {
+                    BoltConsole.Write("CALLING EVENT");
+                    var evnt = TakeDamageEvent.Create(targetEntity.Source);
+                    evnt.Damage = damage;
+                    evnt.Send();
+                }
+                if (projectileHitPrefab != null)
+                {
+                    ContactPoint contact = collision.contacts[0];
+                    Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
+                    var hitfx = Instantiate(projectileHitPrefab, contact.point, rot);
+                }
+
+            }
+
         }
+    }
+    
+    public void SetSpeed(float speed)
+    {
+        this.speed = speed;
+    }
+
+    public void SetIsProjectileShooter(bool isProjectileShooter)
+    {
+        this.isProjectileShooter = isProjectileShooter;
+    }
+
+    public void SetProjectileDamage(float damage)
+    {
+        this.damage = damage;
+    }
+
+    public void SetProjectileHitPrefab(GameObject projectileHitPrefab)
+    {
+        this.projectileHitPrefab = projectileHitPrefab;
     }
 }
