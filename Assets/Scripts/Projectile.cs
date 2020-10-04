@@ -49,7 +49,7 @@ public class Projectile : Bolt.EntityBehaviour<IProjectileState>
             if (isProjectileShooter)
             {
                 var targetEntity = collision.gameObject.GetComponent<BoltEntity>();
-                if (targetEntity != null)
+                if (targetEntity != null && targetEntity.IsAttached)
                 {
                     BoltConsole.Write("CALLING EVENT");
                     var evnt = TakeDamageEvent.Create(targetEntity.Source);

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[BoltGlobalBehaviour]
+[BoltGlobalBehaviour("Main2")]
 public class NetworkCallbacks : Bolt.GlobalEventListener
 {
     void OnGUI()

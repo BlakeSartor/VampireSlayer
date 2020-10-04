@@ -11,7 +11,7 @@ public class MouseLook : Bolt.EntityBehaviour<ISlayerState>
     private float xRot = 0;
     public void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     public override void Attached()
