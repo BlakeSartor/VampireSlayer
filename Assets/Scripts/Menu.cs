@@ -5,7 +5,6 @@ using UdpKit;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using WebSocketSharp;
 
 public class Menu : Bolt.GlobalEventListener
 {
