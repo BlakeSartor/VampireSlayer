@@ -491,7 +491,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2895197481466061694}
   m_LocalRotation: {x: 0.000000048428774, y: -0.017322384, z: -0.0021269047, w: 0.99984777}
-  m_LocalPosition: {x: -0.029, y: 0.147, z: 0.308}
+  m_LocalPosition: {x: -0.04, y: 0.15, z: 0.5}
   m_LocalScale: {x: 8, y: 8, z: 20}
   m_Children: []
   m_Father: {fileID: 3644878723113351851}
@@ -1251,12 +1251,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a7a7def31bb3d4cb8b46f9d53b4fc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileHitPrefab: {fileID: 3186185586274682461, guid: 2f80db20465485f44a25f6d29f5b8309, type: 3}
+  projectileHitPrefab: {fileID: 3186185586274682461, guid: fcd923d26668e4841b97da8acb567f62, type: 3}
   projectilPrefab: {fileID: 352348328808377492, guid: b61f46985ea8e454f9c0448553b2bb71, type: 3}
   firePoint: {fileID: 2895197481466061694}
   damage: 100
   range: 1000
-  fireRate: 1
+  fireRate: 0.25
   projectileSpeed: 50
   isProjectileShooter: 1
 --- !u!1 &4960997681058558346
@@ -1610,7 +1610,7 @@ MonoBehaviour:
   firePoint: {fileID: 8358895776371734973}
   damage: 25
   range: 1000
-  fireRate: 1
+  fireRate: 0.5
   projectileSpeed: 75
   isProjectileShooter: 1
 --- !u!1 &6258028333517850330
@@ -2594,7 +2594,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2098295256785425346, guid: 286dd91804411c144a25ae63e7d0c062, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.731
+      value: 0.88
       objectReference: {fileID: 0}
     - target: {fileID: 2098295256785425346, guid: 286dd91804411c144a25ae63e7d0c062, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2602,7 +2602,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2098295256785425346, guid: 286dd91804411c144a25ae63e7d0c062, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.254
+      value: 0.46
       objectReference: {fileID: 0}
     - target: {fileID: 2098295256785425346, guid: 286dd91804411c144a25ae63e7d0c062, type: 3}
       propertyPath: m_LocalRotation.x

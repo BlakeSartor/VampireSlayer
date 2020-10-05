@@ -139,7 +139,7 @@ public class PlayerWeapon : Bolt.EntityEventListener<ISlayerState>
                     if (projectilHitPrefab != null)
                     {
                         Quaternion rot = Quaternion.FromToRotation(Vector3.up, aimPoint);
-                        var hitfx = Instantiate(projectilHitPrefab, aimPoint, Quaternion.identity);
+                        var hitfx = BoltNetwork.Instantiate(projectilHitPrefab, aimPoint, Quaternion.identity);
                     }
                 }
 

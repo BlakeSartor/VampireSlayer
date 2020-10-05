@@ -33,18 +33,22 @@ public class Projectile : Bolt.EntityBehaviour<IProjectileState>
 
     public override void SimulateOwner()
     {
-        if (speed != 0 )
-        {
-            transform.position += transform.forward * (speed * BoltNetwork.FrameDeltaTime);
-        }
+
+            if (speed != 0)
+            {
+                transform.position += transform.forward * (speed * BoltNetwork.FrameDeltaTime);
+            }
     }
 
     void OnCollisionEnter(Collision collision)
     {
         if (entity.IsAttached)
         {
-            speed = 0;
-            Destroy(gameObject);
+
+                speed = 0;
+                Destroy(gameObject);
+
+  
 
             if (isProjectileShooter)
             {
@@ -52,6 +56,7 @@ public class Projectile : Bolt.EntityBehaviour<IProjectileState>
                 if (targetEntity != null && targetEntity.IsAttached)
                 {
                     BoltConsole.Write("CALLING EVENT");
+                    BoltConsole.Write("hit on : " + collision.gameObject.name);
                     var evnt = TakeDamageEvent.Create(targetEntity.Source);
                     evnt.Damage = damage;
                     evnt.Send();
@@ -60,7 +65,7 @@ public class Projectile : Bolt.EntityBehaviour<IProjectileState>
                 {
                     ContactPoint contact = collision.contacts[0];
                     Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
-                    var hitfx = Instantiate(projectileHitPrefab, contact.point, rot);
+                    var hitfx = BoltNetwork.Instantiate(projectileHitPrefab, contact.point, rot);
                 }
 
             }
