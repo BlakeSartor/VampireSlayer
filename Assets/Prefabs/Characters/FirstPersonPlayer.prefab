@@ -162,7 +162,7 @@ MonoBehaviour:
   damage: 80
   range: 1000
   fireRate: 0.5
-  projectileSpeed: 15
+  projectileSpeed: 30
   isProjectileShooter: 1
 --- !u!1 &2047335230332801739
 GameObject:
@@ -1642,7 +1642,7 @@ MonoBehaviour:
   damage: 25
   range: 1000
   fireRate: 1
-  projectileSpeed: 30
+  projectileSpeed: 75
   isProjectileShooter: 1
 --- !u!1 &6258028333517850330
 GameObject:
