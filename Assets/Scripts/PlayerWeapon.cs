@@ -2,6 +2,7 @@
 using Bolt.Utils;
 using System.Runtime.Serialization.Formatters;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerWeapon : Bolt.EntityEventListener<ISlayerState>
 {
@@ -10,6 +11,7 @@ public class PlayerWeapon : Bolt.EntityEventListener<ISlayerState>
     public GameObject[] WeaponObjects;
     public Camera cam;
     public int activeWeapon;
+    public float timeToFire;
 
     public override void Attached()
     {
@@ -56,16 +58,40 @@ public class PlayerWeapon : Bolt.EntityEventListener<ISlayerState>
         if (!pause.getIsPaused())
         {
 
-            if (Input.GetKeyDown(KeyCode.Alpha1) && entity.IsOwner) state.WeaponActiveIndex = 0;
-            if (Input.GetKeyDown(KeyCode.Alpha2) && entity.IsOwner) state.WeaponActiveIndex = 1;
-            if (Input.GetKeyDown(KeyCode.Alpha3) && entity.IsOwner) state.WeaponActiveIndex = 2;
-            if (Input.GetKeyDown(KeyCode.Alpha0) && entity.IsOwner) state.WeaponActiveIndex = -1;
+            if (Input.GetKeyDown(KeyCode.Alpha1) && entity.IsOwner)
+            {
+                timeToFire = 0f;
+                state.WeaponActiveIndex = 0;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2) && entity.IsOwner)
+            {
+                timeToFire = 0f;
+                state.WeaponActiveIndex = 1;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3) && entity.IsOwner)
+            {
+                timeToFire = 0f;
+                state.WeaponActiveIndex = 2;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha0) && entity.IsOwner) 
+            {
+                timeToFire = 0f;
+                state.WeaponActiveIndex = -1; 
+            }
+
 
             if (Input.GetKeyDown(KeyCode.Mouse0) && entity.IsOwner)
             {
                 if (state.WeaponActiveIndex >= 0)
                 {
-                    state.WeaponShoot();
+                    if (Time.time >= timeToFire)
+                    {
+                        var currentWeapon = WeaponObjects[state.WeaponActiveIndex];
+                        Weapon weapon = currentWeapon.GetComponent<Weapon>();
+                        float fireRate = weapon.GetFireRate();
+                        timeToFire = Time.time + 1 / fireRate;
+                        state.WeaponShoot();
+                    }
                 }
             }
         }
@@ -113,7 +139,7 @@ public class PlayerWeapon : Bolt.EntityEventListener<ISlayerState>
                     if (projectilHitPrefab != null)
                     {
                         Quaternion rot = Quaternion.FromToRotation(Vector3.up, aimPoint);
-                        var hitfx = Instantiate(projectilHitPrefab, aimPoint, rot);
+                        var hitfx = Instantiate(projectilHitPrefab, aimPoint, Quaternion.identity);
                     }
                 }
 

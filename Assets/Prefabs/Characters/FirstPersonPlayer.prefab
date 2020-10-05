@@ -92,7 +92,7 @@ MonoBehaviour:
   firePoint: {fileID: 6258028333517850330}
   damage: 5
   range: 1000
-  fireRate: 0
+  fireRate: 4
   projectileSpeed: 75
   isProjectileShooter: 0
 --- !u!1 &1299601631782026877
@@ -161,7 +161,7 @@ MonoBehaviour:
   firePoint: {fileID: 3690169258998396410}
   damage: 80
   range: 1000
-  fireRate: 0
+  fireRate: 0.5
   projectileSpeed: 15
   isProjectileShooter: 1
 --- !u!1 &2047335230332801739
@@ -724,6 +724,7 @@ MonoBehaviour:
   - {fileID: 5748745166726914321}
   cam: {fileID: 3408894260925031895}
   activeWeapon: 0
+  timeToFire: 0
 --- !u!114 &1147827507404908552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1190,7 +1191,7 @@ SphereCollider:
   m_GameObject: {fileID: 4226581431482567034}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -1640,7 +1641,7 @@ MonoBehaviour:
   firePoint: {fileID: 8358895776371734973}
   damage: 25
   range: 1000
-  fireRate: 0
+  fireRate: 1
   projectileSpeed: 30
   isProjectileShooter: 1
 --- !u!1 &6258028333517850330
@@ -1764,7 +1765,7 @@ SphereCollider:
   m_GameObject: {fileID: 6314365772381880231}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
