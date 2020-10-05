@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5000648924230311067}
   - component: {fileID: 7317062141030097059}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: Laser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,7 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: 4a5ac4f8-bacb-4b84-8f82-cb76c5c3fa72
-  _prefabId: 5
+  _prefabId: 3
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
@@ -328,8 +328,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 1, g: 0.49411768, b: 0, a: 1}
-      maxColor: {r: 0.9811321, g: 0.5807845, b: 0.18974723, a: 1}
+      minColor: {r: 0, g: 0.0022239685, b: 1, a: 1}
+      maxColor: {r: 0.8519323, g: 0.18823527, b: 0.98039216, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -9833,8 +9833,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.9622642, g: 0.32048392, b: 0, a: 0.69411767}
-      key1: {r: 1, g: 0.53361595, b: 0.25943398, a: 0}
+      key0: {r: 0, g: 0.079937465, b: 0.9607843, a: 0.69411767}
+      key1: {r: 0.2588235, g: 0.5703121, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -9851,7 +9851,7 @@ TrailRenderer:
       ctime7: 0
       atime0: 0
       atime1: 65535
-      atime2: 0
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
