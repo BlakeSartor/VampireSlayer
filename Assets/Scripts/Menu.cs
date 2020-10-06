@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Bolt.Matchmaking;
 using UdpKit;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Menu : Bolt.GlobalEventListener
@@ -29,7 +28,7 @@ public class Menu : Bolt.GlobalEventListener
         {
             setUserNamePanel.SetActive(false);
             menuPanel.SetActive(true);
-           userNameMenuButton.GetComponentInChildren<Text>().text = PlayerPrefs.GetString("userName");
+            userNameMenuButton.GetComponentInChildren<Text>().text = PlayerPrefs.GetString("userName");
         }
     }
 

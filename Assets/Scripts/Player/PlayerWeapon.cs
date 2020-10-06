@@ -1,8 +1,4 @@
-﻿using Bolt;
-using Bolt.Utils;
-using System.Runtime.Serialization.Formatters;
-using UnityEngine;
-using UnityEngine.Rendering;
+﻿using UnityEngine;
 
 public class PlayerWeapon : Bolt.EntityEventListener<ISlayerState>
 {
@@ -124,16 +120,15 @@ public class PlayerWeapon : Bolt.EntityEventListener<ISlayerState>
 
                 if (!isProjectileShooter)
                 {
-                    BoltConsole.Write("HIT DETECTED  on OBJECT : " + rayHit.collider.gameObject.name);
                     if (targetEntity != null)
                     {
                         if (entity.IsAttached)
                         {
+                        var evnt = TakeDamageEvent.Create(targetEntity.Source);
+                        evnt.Damage = gunDamage;
+                        evnt.Entity = targetEntity;
+                        evnt.Send();
 
-                            BoltConsole.Write("CALLING EVENT");
-                            var evnt = TakeDamageEvent.Create(targetEntity.Source);
-                            evnt.Damage = gunDamage;
-                            evnt.Send();
                         }
                     }
                     if (projectilHitPrefab != null)
@@ -142,8 +137,6 @@ public class PlayerWeapon : Bolt.EntityEventListener<ISlayerState>
                         var hitfx = BoltNetwork.Instantiate(projectilHitPrefab, aimPoint, Quaternion.identity);
                     }
                 }
-
-
             }
         }
         else

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerHealth : Bolt.EntityEventListener<ISlayerState>
 {
@@ -37,9 +35,12 @@ public class PlayerHealth : Bolt.EntityEventListener<ISlayerState>
 
     public void TakeDamage(float amount)
     {
+
         if (entity.IsOwner)
         {
-            BoltConsole.Write("Healt: " + health);
+            BoltConsole.Write("---HIT DETECTED---: " + amount + " damage taken");
+
+            BoltConsole.Write("Health: " + health);
             health -= amount;
 
             healthbar.SetHealth(health);
@@ -60,10 +61,6 @@ public class PlayerHealth : Bolt.EntityEventListener<ISlayerState>
         var spawnPosition = new Vector3(Random.Range(-5f, 5f), Random.Range(15f, 30f), 0f);
 
        var player = BoltNetwork.Instantiate(BoltPrefabs.FirstPersonPlayer, spawnPosition, Quaternion.identity);
-
-        //health = maxHealth;
-        //healthbar.SetHealth(maxHealth);
-
     }
 
 }

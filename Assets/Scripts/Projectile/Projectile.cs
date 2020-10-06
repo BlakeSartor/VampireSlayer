@@ -1,6 +1,4 @@
-﻿using Bolt;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
 
 public class Projectile : Bolt.EntityBehaviour<IProjectileState>
@@ -48,23 +46,21 @@ public class Projectile : Bolt.EntityBehaviour<IProjectileState>
                 speed = 0;
                 Destroy(gameObject);
 
-  
 
             if (isProjectileShooter)
             {
                 var targetEntity = collision.gameObject.GetComponent<BoltEntity>();
                 if (targetEntity != null && targetEntity.IsAttached)
                 {
-                    BoltConsole.Write("CALLING EVENT");
-                    BoltConsole.Write("hit on : " + collision.gameObject.name);
                     var evnt = TakeDamageEvent.Create(targetEntity.Source);
                     evnt.Damage = damage;
+                    evnt.Entity = targetEntity;
                     evnt.Send();
                 }
                 if (projectileHitPrefab != null)
                 {
                     ContactPoint contact = collision.contacts[0];
-                    Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
+                    Quaternion rot = Quaternion.FromToRotation(Vector3.back, contact.normal);
                     var hitfx = BoltNetwork.Instantiate(projectileHitPrefab, contact.point, rot);
                 }
 

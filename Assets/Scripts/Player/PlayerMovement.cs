@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class PlayerMovement2 : Bolt.EntityEventListener<ISlayerState>
+public class PlayerMovement : Bolt.EntityEventListener<ISlayerState>
 {
     public GameObject pauseMenu;
     public GameObject eyes;
@@ -19,13 +19,14 @@ public class PlayerMovement2 : Bolt.EntityEventListener<ISlayerState>
     public float runSpeed = 32f;
     public float jumpHeight = 3f;
 
+    int team;
+
     Vector3 velocity;
     bool isGrounded;
 
     public override void Attached()
     {
         state.SetTransforms(state.SlayerTransform, transform);
-
 
         if (entity.IsOwner)
         {
@@ -34,14 +35,15 @@ public class PlayerMovement2 : Bolt.EntityEventListener<ISlayerState>
             eyes.SetActive(false);
 
             state.SlayerColor = new Color(Random.value, Random.value, Random.value);
+            state.Team = 1;
         } 
 
         state.AddCallback("SlayerColor", ColorChanged);
+        state.AddCallback("Team", TeamAssigned);
     }
 
     public void Update()
     {
-        
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
@@ -70,7 +72,7 @@ public class PlayerMovement2 : Bolt.EntityEventListener<ISlayerState>
                 speed = walkSpeed;
             }
 
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Jump") && isGrounded)
             {
                 velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
             }
@@ -92,9 +94,23 @@ public class PlayerMovement2 : Bolt.EntityEventListener<ISlayerState>
         if (entity.IsOwner)
         {
             GUI.color = state.SlayerColor;
-            GUILayout.Label("@@@");
+            if (state.Team == 1)
+            {
+                GUILayout.Label("TEAM: Vampire Slayer");
+            }
+            else
+            {
+                GUILayout.Label("TEAM: Vampire");
+
+            }
             GUI.color = Color.white;
+
         }
+    }
+
+    void TeamAssigned()
+    {
+        team = state.Team;
     }
 
     void ColorChanged()

@@ -1,17 +1,16 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class HitDestruct : Bolt.EntityBehaviour<IProjectileHitState>
+public class SelfDestruct : Bolt.EntityBehaviour<IProjectileHitState>
 {
     public float timeToDie = 10f;
 
     void Start()
     {
-        StartCoroutine(SelfDestruct());
+        StartCoroutine(Destruct());
     }
 
-    IEnumerator SelfDestruct()
+    IEnumerator Destruct()
     {
         yield return new WaitForSeconds(timeToDie);
         if (entity.IsOwner)
