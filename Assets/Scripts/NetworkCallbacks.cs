@@ -24,10 +24,9 @@ public class NetworkCallbacks : Bolt.GlobalEventListener
     [System.Obsolete]
     public override void SceneLoadLocalDone(string scene)
     {
-        var spawnPosition = new Vector3(Random.Range(-5f, 5f), Random.Range(15f,30f), 0f);
-
-        var player = BoltNetwork.Instantiate(BoltPrefabs.FirstPersonPlayer, spawnPosition, Quaternion.identity);
-    
+        PlayerPrefs.SetString("team", "none");
+       var spawnPosition = new Vector3(Random.Range(-5f, 5f), Random.Range(15f, 30f), 0f);
+       var playerCam = BoltNetwork.Instantiate(BoltPrefabs.PlayerNoTeam, spawnPosition, Quaternion.identity);
     }
 
     public override void OnEvent(PlayerJoinedEvent evnt)

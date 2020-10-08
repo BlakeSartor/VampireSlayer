@@ -34,7 +34,17 @@ public class PlayerMovement : Bolt.EntityEventListener<ISlayerState>
 
             eyes.SetActive(false);
 
-            state.SlayerColor = new Color(Random.value, Random.value, Random.value);
+            if (PlayerPrefs.GetString("team").Equals("vampire"))
+            {
+                state.SlayerColor = new Color(0, 0, 0);
+
+            }
+            else
+            {
+                state.SlayerColor = new Color(Random.value, Random.value, Random.value);
+
+            }
+
             state.Team = 1;
         } 
 
@@ -94,13 +104,13 @@ public class PlayerMovement : Bolt.EntityEventListener<ISlayerState>
         if (entity.IsOwner)
         {
             GUI.color = state.SlayerColor;
-            if (state.Team == 1)
+            if (PlayerPrefs.GetString("team").Equals("vampire"))
             {
-                GUILayout.Label("TEAM: Vampire Slayer");
+                GUILayout.Label("TEAM: Vampires");
             }
             else
             {
-                GUILayout.Label("TEAM: Vampire");
+                GUILayout.Label("TEAM: Slayers");
 
             }
             GUI.color = Color.white;

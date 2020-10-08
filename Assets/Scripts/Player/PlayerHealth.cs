@@ -45,7 +45,7 @@ public class PlayerHealth : Bolt.EntityEventListener<ISlayerState>
 
             healthbar.SetHealth(health);
 
-            BoltConsole.Write("Healt after: " + health);
+            BoltConsole.Write("Health after: " + health);
 
 
             if (health <= 0)
@@ -60,7 +60,7 @@ public class PlayerHealth : Bolt.EntityEventListener<ISlayerState>
         BoltNetwork.Destroy(gameObject);
         var spawnPosition = new Vector3(Random.Range(-5f, 5f), Random.Range(15f, 30f), 0f);
 
-       var player = BoltNetwork.Instantiate(BoltPrefabs.FirstPersonPlayer, spawnPosition, Quaternion.identity);
+       var player = BoltNetwork.Instantiate(BoltPrefabs.Vampire, spawnPosition, Quaternion.identity);
     }
 
 }
