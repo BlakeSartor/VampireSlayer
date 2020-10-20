@@ -60,7 +60,7 @@ public class Projectile : Bolt.EntityBehaviour<IProjectileState>
                 if (projectileHitPrefab != null)
                 {
                     ContactPoint contact = collision.contacts[0];
-                    Quaternion rot = Quaternion.FromToRotation(Vector3.back, contact.normal);
+                    Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
                     var hitfx = BoltNetwork.Instantiate(projectileHitPrefab, contact.point, rot);
                 }
 

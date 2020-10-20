@@ -58,9 +58,9 @@ public class PlayerHealth : Bolt.EntityEventListener<ISlayerState>
     void Die()
     {
         BoltNetwork.Destroy(gameObject);
-        var spawnPosition = new Vector3(Random.Range(-5f, 5f), Random.Range(15f, 30f), 0f);
 
-       var player = BoltNetwork.Instantiate(BoltPrefabs.Vampire, spawnPosition, Quaternion.identity);
+        var spawnPosition = new Vector3(Random.Range(-5f, 5f), Random.Range(15f, 30f), 0f); 
+        var player = BoltNetwork.Instantiate(BoltPrefabs.Vampire, spawnPosition, Quaternion.identity);
     }
 
 }

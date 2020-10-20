@@ -19,7 +19,7 @@ public class Menu : Bolt.GlobalEventListener
     public void Start()
     {
 
-        if (String.IsNullOrEmpty(PlayerPrefs.GetString("username")))
+        if (String.IsNullOrEmpty(PlayerPrefs.GetString("userName")))
         {
             setUserNamePanel.SetActive(true);
             menuPanel.SetActive(false);
